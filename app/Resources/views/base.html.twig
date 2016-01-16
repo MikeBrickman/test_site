@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html"; charset=utf-8" />
+    <title>{% block title %}manage user{% endblock %}</title>
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    {% block stylesheets %}
+        <link href='http://fonts.googleapis.com/css?family=Irish+Grover' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=La+Belle+Aurore' rel='stylesheet' type='text/css'>
+        <link href="{{ asset('css/main.css') }}" type="text/css" rel="stylesheet" />
+    {% endblock %}
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    {#<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />#}
+</head>
+<body>
+
+<section id="wrapper">
+    <header id="header">
+        <div class="top">
+            {% block navigation %}
+                <nav>
+                    <ul class="navigation">
+                        <li><a href="{{ path('user_profile') }}">Profile</a></li>
+                        <li><a href="{{ path('user_login') }}">Login</a></li>
+                            <li><a href="{{ path('user_logout') }}">Logout</a></li>
+                        <li><a href="{{ path('user_registration') }}">Registration</a></li>
+                    </ul>
+                </nav>
+            {% endblock %}
+        </div>
+
+        <hgroup>
+            <h2>{% block site_title %}test site{% endblock %}</h2>
+            <h3>{% block description %}description{% endblock %}</h3>
+        </hgroup>
+    </header>
+
+    <section class="main">
+        {% block body %}{% endblock %}
+    </section>
+
+    <div id="footer">
+        {% block footer %}
+            Symfony2 test site - created by <a href="https://github.com/MikeBrickman">Mike Brickman</a>
+        {% endblock %}
+    </div>
+</section>
+
+{% block javascripts %}{% endblock %}
+</body>
+</html>
