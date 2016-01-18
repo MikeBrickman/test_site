@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="users")
  * @ORM\Entity
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @var integer
@@ -68,11 +68,6 @@ class User
      * @ORM\OneToMany(targetEntity="Hobbi", mappedBy="User")
      */
     private $hobbies;
-
-//    public function __construct()
-//    {
-//        $this->hobbies = new ArrayCollection();
-//    }
 
     /**
      * Get id
@@ -248,10 +243,10 @@ class User
     /**
      * Add hobbies
      *
-     * @param \AppBundle\Entity\Comment $hobbies
+     * @param \AppBundle\Entity\Hobbi $hobbies
      * @return User
      */
-    public function addHobby(\AppBundle\Entity\Comment $hobbies)
+    public function addHobby(\AppBundle\Entity\Hobbi $hobbies)
     {
         $this->hobbies[] = $hobbies;
 
@@ -261,9 +256,9 @@ class User
     /**
      * Remove hobbies
      *
-     * @param \AppBundle\Entity\Comment $hobbies
+     * @param \AppBundle\Entity\Hobbi $hobbies
      */
-    public function removeHobby(\AppBundle\Entity\Comment $hobbies)
+    public function removeHobby(\AppBundle\Entity\Hobbi $hobbies)
     {
         $this->hobbies->removeElement($hobbies);
     }
@@ -275,4 +270,46 @@ class User
         $this->hobbies = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    public function getRoles()
+    {
+        return array('ROLE_ADMIN');
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function equals(User $user)
+    {
+        return $user->getUsername() == $this->getUsername();
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
+    }
 }
