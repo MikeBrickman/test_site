@@ -20,7 +20,22 @@ class UserType extends AbstractType
                     'first_options'  => array('label' => 'Password'),
                     'second_options' => array('label' => 'Repeat Password'),
                 )
-            );
+            )
+            ->add('hobbi', 'choice', array(
+                'choices'  => array(
+                    'Baseball' => 'Baseball',
+                    'Arts' => 'Arts',
+                    'Astrology' => 'Astrology',
+                    'Bicycling' => 'Bicycling',
+                    'Blogging' => 'Blogging',
+                    'Boating' => 'Boating',
+                    'Bowling' => 'Bowling',
+                    'Chess' => 'Chess',
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
+//                'multiple' => true,
+            ));
     }
 
     public function getName()

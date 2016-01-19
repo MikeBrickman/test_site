@@ -39,7 +39,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=60)
+     * @ORM\Column(name="email", type="string", length=60, unique=true)
      */
     private $email;
 
@@ -65,9 +65,10 @@ class User implements UserInterface, \Serializable
     private $birthday;
 
     /**
-     * @ORM\OneToMany(targetEntity="Hobbi", mappedBy="User")
+     *
+     * @ORM\Column(name="hobbi", type="text")
      */
-    private $hobbies;
+    private $hobbi;
 
     /**
      * Get id
@@ -311,5 +312,28 @@ class User implements UserInterface, \Serializable
             // see section on salt below
             // $this->salt
             ) = unserialize($serialized);
+    }
+
+    /**
+     * Set hobbi
+     *
+     * @param string $hobbi
+     * @return User
+     */
+    public function setHobbi($hobbi)
+    {
+        $this->hobbi = $hobbi;
+
+        return $this;
+    }
+
+    /**
+     * Get hobbi
+     *
+     * @return string 
+     */
+    public function getHobbi()
+    {
+        return $this->hobbi;
     }
 }

@@ -2,7 +2,7 @@ security:
     encoders:
         AppBundle\Entity\User: bcrypt
     providers:
-        main:
+        my_db_provider:
             entity:
                 class: AppBundle:User
                 property: username
@@ -11,15 +11,15 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            pattern:    ^/
+            provider: my_db_provider
             anonymous: ~
-            provider: main
             form_login:
                   login_path: /login
                   check_path: /login_check
                   default_target_path: user_homepage
-            logout:
-                  path:   /logout
-                  target: /
+            logout: true
+
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_ADMIN }

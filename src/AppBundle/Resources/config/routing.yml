@@ -4,9 +4,9 @@ user_homepage:
 
 user_profile:
     pattern:  /profile
-    defaults: { _controller: AppBundle:Profile:index }
+    defaults: { _controller: AppBundle:Profile:edit }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 user_login:
     path:     /login
