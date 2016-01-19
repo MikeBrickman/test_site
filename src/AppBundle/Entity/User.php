@@ -4,12 +4,16 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 
 /**
  * User
  *
  * @ORM\Table(name="users")
  * @ORM\Entity
+ * @DoctrineAssert\UniqueEntity(fields={"username"}, message="username already exist" )
+ * @DoctrineAssert\UniqueEntity(fields={"email"}, message="email already exist" )
  */
 class User implements UserInterface, \Serializable
 {
